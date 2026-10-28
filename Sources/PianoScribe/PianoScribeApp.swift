@@ -13,6 +13,12 @@ struct PianoScribeApp: App {
                 .frame(minWidth: 960, minHeight: 620)
         }
         .commands {
+            CommandGroup(replacing: .appInfo) {
+                Button("About PianoScribe") {
+                    // Passed in code rather than via NSHumanReadableCopyright so it also shows when run from Xcode.
+                    NSApp.orderFrontStandardAboutPanel(options: [.init(rawValue: "Copyright"): "by Nick Bradbury"])
+                }
+            }
             CommandGroup(replacing: .newItem) {
                 Button("Open…") { state.presentOpenPanel() }
                     .keyboardShortcut("o")
