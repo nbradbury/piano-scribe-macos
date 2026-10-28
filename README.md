@@ -11,6 +11,8 @@ MP4 ──AVFoundation──▶ 22 kHz mono ──Core ML (Basic Pitch)──▶
 
 Everything runs on-device. No Python or network access needed.
 
+Picking the project back up? Start with [docs/HANDOFF.md](docs/HANDOFF.md) for current status, design details and next steps.
+
 ## Requirements
 
 - macOS 13 Ventura or later
