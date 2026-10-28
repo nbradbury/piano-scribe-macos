@@ -1,4 +1,4 @@
-# PianoScribe
+# <img src="docs/icon.png" width="64" align="center" alt=""> PianoScribe
 
 A native macOS app that turns a video or audio recording (MP4, MOV, M4A, MP3, WAV…) into piano sheet music.
 
