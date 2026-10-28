@@ -2,6 +2,9 @@
 
 A native macOS app that turns a video or audio recording (MP4, MOV, M4A, MP3, WAV…) into piano sheet music.
 
+<img width="1165" height="1112" alt="Screenshot 2026-10-28 at 1 06 35 PM" src="https://github.com/user-attachments/assets/210d5d1b-f461-4477-a72c-605159fd5d21" />
+
+
 ```
 MP4 ──AVFoundation──▶ 22 kHz mono ──Core ML (Basic Pitch)──▶ note/onset activations
     ──ScoreKit──▶ notes ─▶ tempo + beat tracking ─▶ quantize ─▶ key ─▶ left/right hand ─▶ measures
