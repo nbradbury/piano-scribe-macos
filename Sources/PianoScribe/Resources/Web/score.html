@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Score</title>
+<style>
+  :root { color-scheme: light dark; }
+  html, body { margin: 0; padding: 0; background: #e9e9ec; font-family: -apple-system, system-ui, sans-serif; }
+  @media (prefers-color-scheme: dark) { html, body { background: #2a2a2d; } #status { color: #aaa; } }
+  #status { color: #666; text-align: center; margin-top: 40vh; font-size: 14px; }
+  #score { padding: 16px 0 32px; }
+  .page { background: #fff; margin: 0 auto 16px; box-shadow: 0 1px 4px rgba(0,0,0,.25); width: fit-content; }
+  .page svg { display: block; }
+  @media print {
+    html, body { background: #fff; }
+    #score { padding: 0; }
+    .page { box-shadow: none; margin: 0; width: 100%; page-break-after: always; break-after: page; }
+    .page svg { width: 100% !important; height: auto !important; }
+    .page:last-child { page-break-after: auto; break-after: auto; }
+  }
+</style>
+</head>
+<body>
+<div id="status">Loading notation engine…</div>
+<div id="score"></div>
+<script src="verovio-toolkit-wasm.js"></script>
+<script>
+  // Bridge used by the Swift app (and by the headless test harness).
+  let tk = null;
+  let currentXML = null;
+  let zoom = 45;              // Verovio scale (percent)
+  let printing = false;
+
+  function post(msg) {
+    try { window.webkit.messageHandlers.score.postMessage(msg); } catch (e) { /* not in WKWebView */ }
+  }
+
+  function layout() {
+    if (!tk || !currentXML) return 0;
+    const avail = Math.max(400, document.documentElement.clientWidth - 32);
+    const pageWidth = printing ? 2100 : Math.round(avail * 100 / zoom);
+    tk.setOptions({
+      scale: printing ? 40 : zoom,
+      pageWidth: pageWidth,
+      pageHeight: printing ? 2800 : 60000,   // 3:4, fits Letter and A4
+      adjustPageHeight: !printing,
+      pageMarginTop: 60, pageMarginBottom: 60, pageMarginLeft: 50, pageMarginRight: 50,
+      breaks: 'auto',
+      footer: 'none',
+      header: 'auto',
+      font: 'Leipzig'
+    });
+    tk.redoLayout();
+    const container = document.getElementById('score');
+    container.innerHTML = '';
+    const pages = tk.getPageCount();
+    for (let i = 1; i <= pages; i++) {
+      const div = document.createElement('div');
+      div.className = 'page';
+      div.innerHTML = tk.renderToSVG(i);
+      container.appendChild(div);
+    }
+    return pages;
+  }
+
+  window.renderScore = function (xml) {
+    currentXML = xml;
+    if (!tk) return false;
+    const ok = tk.loadData(xml);
+    if (!ok) {
+      document.getElementById('status').textContent = 'Could not read the score.';
+      post({ event: 'error', message: tk.getLog() });
+      return false;
+    }
+    document.getElementById('status').style.display = 'none';
+    const pages = layout();
+    post({ event: 'rendered', pages: pages });
+    return pages;
+  };
+
+  window.setZoom = function (z) { zoom = z; layout(); };
+  window.preparePrint = function (on) { printing = !!on; layout(); return true; };
+
+  let resizeTimer = null;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => { if (!printing) layout(); }, 120);
+  });
+
+  verovio.module.onRuntimeInitialized = () => {
+    tk = new verovio.toolkit();
+    document.getElementById('status').textContent = 'Open an audio or video file to begin.';
+    window.verovioReady = true;
+    post({ event: 'ready' });
+    if (currentXML) window.renderScore(currentXML);
+  };
+</script>
+</body>
+</html>

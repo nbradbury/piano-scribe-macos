@@ -60,3 +60,12 @@ fastlane/report.xml
 fastlane/Preview.html
 fastlane/screenshots/**/*.png
 fastlane/test_output
+
+# PianoScribe
+.build/
+build/
+.swiftpm/
+DerivedData/
+.DS_Store
+Tests/Reference/build/
+__pycache__/
