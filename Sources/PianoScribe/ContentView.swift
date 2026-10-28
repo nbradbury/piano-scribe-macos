@@ -7,10 +7,11 @@ struct ContentView: View {
     @State private var dropTargeted = false
 
     var body: some View {
-        NavigationSplitView {
-            SettingsSidebar()
-                .navigationSplitViewColumnWidth(min: 270, ideal: 300, max: 380)
-        } detail: {
+        // Not NavigationSplitView: a .grouped Form in its sidebar column doesn't receive clicks
+        // (each control ends up under a non-hit-testable section clip view).
+        HStack(spacing: 0) {
+            SettingsSidebar().frame(width: 300)
+            Divider()
             ZStack {
                 ScoreView(controller: state.scoreView)
                     .opacity(state.musicXML == nil ? 0 : 1)
