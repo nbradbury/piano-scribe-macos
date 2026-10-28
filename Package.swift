@@ -27,7 +27,7 @@ package.targets += [
     .executableTarget(
         name: "PianoScribe",
         dependencies: ["ScoreKit", "Transcriber"],
-        resources: [.copy("Resources/Web")]
+        resources: [.copy("Resources/Web"), .copy("Resources/AppIcon.icns")]
     ),
     .testTarget(name: "TranscriberTests", dependencies: ["Transcriber", "ScoreKit"], resources: [.copy("Fixtures")]),
 ]

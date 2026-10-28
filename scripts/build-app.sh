@@ -16,6 +16,7 @@ cp "$BIN/PianoScribe" "$APP/Contents/MacOS/PianoScribe"
 for b in "$BIN"/PianoScribe_*.bundle; do
   cp -R "$b" "$APP/Contents/Resources/"
 done
+cp Sources/PianoScribe/Resources/AppIcon.icns "$APP/Contents/Resources/"
 
 cat > "$APP/Contents/Info.plist" <<'PLIST'
 <?xml version="1.0" encoding="UTF-8"?>
@@ -26,6 +27,7 @@ cat > "$APP/Contents/Info.plist" <<'PLIST'
   <key>CFBundleDisplayName</key><string>PianoScribe</string>
   <key>CFBundleIdentifier</key><string>local.pianoscribe.app</string>
   <key>CFBundleExecutable</key><string>PianoScribe</string>
+  <key>CFBundleIconFile</key><string>AppIcon</string>
   <key>CFBundlePackageType</key><string>APPL</string>
   <key>CFBundleShortVersionString</key><string>1.0</string>
   <key>CFBundleVersion</key><string>1</string>
