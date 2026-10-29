@@ -2,7 +2,10 @@
 
 A native macOS app that turns a video or audio recording (MP4, MOV, M4A, MP3, WAV…) into piano sheet music.
 
-<img width="1165" height="1112" alt="Screenshot 2026-10-28 at 1 06 35 PM" src="https://github.com/user-attachments/assets/210d5d1b-f461-4477-a72c-605159fd5d21" />
+<img width="1168" height="1125" alt="Screenshot 2026-10-29 at 9 29 28 AM" src="https://github.com/user-attachments/assets/2e8baaa4-ae41-4c79-bd03-5ee9db17e5f0" />
+
+
+<img width="1168" height="1125" alt="Screenshot 2026-10-29 at 9 28 04 AM" src="https://github.com/user-attachments/assets/02bbce21-bc6f-4baf-92b4-2c384646df24" />
 
 
 ```
