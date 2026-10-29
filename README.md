@@ -35,8 +35,9 @@ swift run PianoScribe                 # debug build, runs from Terminal
 On the first transcription the app compiles the Core ML model once and caches it in
 `~/Library/Application Support/PianoScribe/`. This takes a few seconds.
 
-To try it out, open `Tests/TranscriberTests/Fixtures/ode-to-joy-test.mp4`. It's a synthesized piano
-recording of *Ode to Joy* in G major with a slightly drifting tempo.
+To try it out, click **Use Sample Song** on the start screen to transcribe *Hannah's Song*, which is
+bundled with the app. Or open `Tests/TranscriberTests/Fixtures/ode-to-joy-test.mp4`,
+a synthesized piano recording of *Ode to Joy* in G major with a slightly drifting tempo.
 
 ## Tests
 

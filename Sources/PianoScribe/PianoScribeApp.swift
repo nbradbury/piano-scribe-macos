@@ -67,6 +67,8 @@ enum AppResources {
         url(forResource: "AppIcon", withExtension: "icns").flatMap(NSImage.init(contentsOf:))
     }
 
+    static var sampleSong: URL? { url(forResource: "Hannah's Song by Nick Bradbury", withExtension: "m4a") }
+
     private static func url(forResource name: String, withExtension ext: String?) -> URL? {
         let bundleName = "PianoScribe_PianoScribe.bundle"
         let roots = [Bundle.main.resourceURL, Bundle.main.bundleURL, Bundle.main.executableURL?.deletingLastPathComponent()]

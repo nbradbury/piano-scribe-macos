@@ -48,9 +48,14 @@ struct ContentView: View {
                     .font(.title2)
                 Text("MP4, MOV, M4A, MP3, WAV… Works best on solo piano recordings.")
                     .foregroundStyle(.secondary)
-                Button("Open…") { state.presentOpenPanel() }
-                    .keyboardShortcut(.defaultAction)
-                    .controlSize(.large)
+                HStack {
+                    Button("Open…") { state.presentOpenPanel() }
+                        .keyboardShortcut(.defaultAction)
+                    if let sample = AppResources.sampleSong {
+                        Button("Use Sample Song") { state.open(sample) }
+                    }
+                }
+                .controlSize(.large)
             }
             .padding(40)
         case .loadingAudio:
